@@ -13,12 +13,6 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notNull: {
           msg: 'L\'email ne peut pas être vide',
-        },
-        async isUnique(email) {
-          const user = await User.findOne({ where: { email: email } })
-          if (user) {
-            throw new Error('Cette adresse email existe déjà');
-          }
         }
       }
     },
@@ -33,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     password: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(255),
       allowNull: false,
     }
   }, {

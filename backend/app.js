@@ -2,42 +2,41 @@ const express = require('express');
 const cors = require("cors");
 const bodyParser = require('body-parser')
 const Sequelize = require('sequelize');
-const dbConfig = require("./config/db.config");
 
 const authRoutes = require('./routes/auth');
 
-const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-    host: dbConfig.HOST,
-    dialect: dbConfig.dialect,
-  
-    pool: {
-      max: dbConfig.pool.max,
-      min: dbConfig.pool.min,
-      acquire: dbConfig.pool.acquire,
-      idle: dbConfig.pool.idle
-    }
-});
+const db = require('./middlewares/db')
 
-sequelize.authenticate().then(function (success) {
+async function connection() {
+  try {
+    await sequelize.authenticate();
+    console.log('ok');
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-  console.log("Successfully we are connected with the database");
-}).catch(function (error) {
+connection();
 
-  console.log(error);
-});
-
-const db = {};
-
-db.Sequelize = Sequelize;
-db.sequelize = sequelize;
+db.sequelize.sync();
 
 const app = express();
 
 app.use(cors({origin: 'http://localhost:3000'}));
 
-app.use(bodyParser.json())
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+  next();
+});
+
+app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 app.use('/api/auth', authRoutes);
-
 
 module.exports = app;
