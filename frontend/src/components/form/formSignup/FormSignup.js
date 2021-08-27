@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './FormSignup.scss';
+import './formSignup.scss';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -65,7 +65,7 @@ class FormSignup extends Component {
     
                     <div className="field">
                         <div className="control">
-                            <button className="button is-success" type="submit">
+                            <button className="button btn-signup" type="submit">
                                 Inscription
                             </button>
                         </div>

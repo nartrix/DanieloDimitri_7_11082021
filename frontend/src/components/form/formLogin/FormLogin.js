@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './FormLogin.scss';
+import './formLogin.scss';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -54,8 +54,8 @@ class FormLogin extends Component {
     
                 <div className="field">
                     <div className="control">
-                        <button className="button is-success" type="submit">
-                            Login
+                        <button className="button btn-login" type="submit">
+                            Connexion
                         </button>
                     </div>
                 </div>

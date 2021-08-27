@@ -1,9 +1,13 @@
 .form-signup {
-    background-color: red;
-    position: absolute;
+    background-color: white;
     border-radius: 10px;
-    top: 30%;
-    left: 10%;
     padding: 40px 30px 30px 30px;
-    color: white;
+    margin-left: 50px;
+    margin-right: 50px;
+
+    .btn-signup {
+        background-color: black;
+        color: white;
+        font-weight: bold;
+    }
 }

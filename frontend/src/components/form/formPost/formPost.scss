@@ -1,0 +1,18 @@
+.form-post {
+    padding: 40px 30px 30px 30px;
+
+    .input {
+        border-radius: 10px;
+    }
+
+    .field, .is-grouped {
+        .btn-publish {
+            display: flex;
+            float: right;
+            background-color: red;
+            color: white;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+    }   
+}
