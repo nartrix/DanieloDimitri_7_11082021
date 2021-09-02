@@ -6,17 +6,47 @@ class FormPost extends Component {
 
     state = {
         fields: {
-        }
+            content: ''
+        },
     }
 
-    handleFormSubmit = (event) => {
+    fileExtensions = [
+        'gif', 'jpg', 'jpeg', 'png'
+    ]
+
+    constructor(props) {
+        super(props);
+        this.imageInput = React.createRef();
+        this.newPostForm = React.createRef();
+    }
+    
+    handleFormSubmit = (event) => { // Submit formData with authorization token 
         event.preventDefault();
-        /* let { fields } = this.state; */
-        axios.post('http://localhost:3001/api/auth/posts',{
+        let { content } = this.state.fields;
+
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        const formData = new FormData();
+        formData.append('content', content);
+        formData.append('image', this.imageInput.current.files[0]);
+
+        axios.post('http://localhost:3001/api/post', formData, {
+            headers: {
+                'Authorization': 'Bearer ' + user.token,
+                'Content-Type': 'multipart/form-data'
+            }
         })
         .then(res => {
+            const post = res.data.post;
+            post.User = { username: this.props.user.username };
+            this.props.addPost(post);
+
+            // Reset form fields
+            this.newPostForm.current.reset();
+            this.setState({ fields: { content: '' } });
         })
         .catch(err => {
+            console.log(err);
         })
     }
 
@@ -25,16 +55,16 @@ class FormPost extends Component {
         fields[event.target.name] = event.target.value;
         this.setState({
             fields
-        })
+        });
     }
 
     render() {
         return (
             <>
-                <form className="form-group form-post" method="post" onSubmit={this.handleFormSubmit}>
+                <form className="form-group form-post" method="post" onSubmit={this.handleFormSubmit} ref={this.newPostForm}>
                     <div className="field">
                         <div className="control has-icons-left has-icons-right">
-                            <input className="input" type="text" placeholder="Donner un titre à votre post" name="post" value={this.state.fields['email']} onChange={this.handleChange} />
+                            <input className="input" type="text" placeholder="Donner un titre à votre post" name="content" value={this.state.fields['content']} onChange={this.handleChange}  />
                             <span className="icon is-small is-left"><i className="fas fa-envelope"></i></span>
                             <span className="icon is-small is-right"><i className="fas fa-check"></i></span>
                         </div>
@@ -44,7 +74,7 @@ class FormPost extends Component {
                         <div className="control">
                             <div className="file">
                                 <label className="file-label">
-                                    <input className="file-input" type="file" name="resume" />
+                                    <input className="file-input" type="file" name="image" ref={this.imageInput} />
                                     <span className="file-cta">
                                     <span className="file-icon">
                                         <i className="fas fa-upload"></i>

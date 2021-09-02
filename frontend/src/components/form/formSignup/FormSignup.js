@@ -13,7 +13,7 @@ class FormSignup extends Component {
         }
     }
 
-    handleFormSubmit = (event) => {
+    handleFormSubmit = (event) => { // Submit user
         event.preventDefault();
         let { fields } = this.state;
         axios.post('http://localhost:3001/api/auth/signup',{
@@ -22,7 +22,7 @@ class FormSignup extends Component {
             password: fields['password']
         })
         .then(res => {
-            window.location.href = "/";
+            window.location.href = "/login";
         })
         .catch(err => {
         })
@@ -51,7 +51,7 @@ class FormSignup extends Component {
                     <div className="field">
                         <div className="control has-icons-left has-icons-right">
                             <input className="input" type="name" placeholder="username" name="username" value={this.state.fields['username']} onChange={this.handleChange} />
-                            <span className="icon is-small is-left"><i className="fas fa-envelope"></i></span>
+                            <span className="icon is-small is-left"><i className="fas fa-user"></i></span>
                             <span className="icon is-small is-right"><i className="fas fa-check"></i></span>
                         </div>
                     </div>
@@ -73,7 +73,7 @@ class FormSignup extends Component {
     
                     <div className="section-login">
                         <p>Vous n'avez pas de compte</p>
-                        <Link to='/'>
+                        <Link to='/login'>
                             Connexion
                         </Link>
                     </div>

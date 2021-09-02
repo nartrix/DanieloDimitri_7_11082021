@@ -12,7 +12,7 @@ class FormLogin extends Component {
         }
     }
 
-    handleFormSubmit = (event) => {
+    handleFormSubmit = (event) => { // Submit post login
         event.preventDefault();
         let { fields } = this.state;
         axios.post('http://localhost:3001/api/auth/login',{
@@ -20,7 +20,8 @@ class FormLogin extends Component {
             password: fields.password
         })
         .then(res => {
-            window.location.href = "/home";
+            localStorage.setItem("user", JSON.stringify(res.data));
+            window.location.href = "/";
         })
         .catch(err => {
         })

@@ -1,6 +1,6 @@
 const dbConfig = require("../config/db.config");
-
 const Sequelize = require("sequelize");
+
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
@@ -20,5 +20,15 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.users = require('../models/user') (sequelize, Sequelize);
+db.posts = require('../models/post') (sequelize, Sequelize);
+
+/* db.users.belongsToMany(db.posts, {
+  through: "user_posts",
+  foreignKey: "ownerId"
+}); */
+db.users.hasMany(db.posts);
+db.posts.belongsTo(db.users);
+
+db.sequelize.sync();
 
 module.exports = db;

@@ -9,9 +9,9 @@ class Navbar extends Component {
     render () {
         return (
             <>
-              <nav className="navbar" role="navigation" aria-label="main navigation">
+              <nav className="navbar is-fixed-top" role="navigation" aria-label="main navigation">
                   <div className="navbar-brand">
-                      <Link className="navbar-item" to='/home'>
+                      <Link className="navbar-item" to='/'>
                           <img src={logo} className='img-logo' alt='logo'/>
                       </Link>
                   </div>

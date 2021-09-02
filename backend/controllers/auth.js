@@ -8,23 +8,23 @@ exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
     .then(async hash => {
       try {
-        const user = await Users.create({
+        Users.create({
           email: cryptoJs.HmacSHA512(req.body.email, 'RANDOM_KEY_SECRET').toString(),
           username: req.body.username,
           password: hash,
         })
-        res.send('message: utilisateur créer');
+        res.status(201).json({message: 'utilisateur créer'});
       } catch (error) {
         console.error(error);
         res.status(400).json({ error : 'erreur db' })
       }
     })
-    .catch(error => res.status(500).json({ error: 'erreur serveur' }));
+    .catch(error => res.status(500).json({ error }));
 };
 
 exports.login = async (req, res, next) => {
     try {
-      const user = await Users.findOne({ email: cryptoJs.HmacSHA512(req.body.email, 'RANDOM_KEY_SECRET').toString(), }) // get mail encrypt
+      const user = await Users.findOne({where: { email: cryptoJs.HmacSHA512(req.body.email, 'RANDOM_KEY_SECRET').toString(), }}) // get mail encrypt
       if (!user) {
         return res.status(401).json({ error: 'Utilisateur non trouvé !' });
       }
@@ -33,9 +33,11 @@ exports.login = async (req, res, next) => {
           if (!valid) {
             return res.status(401).json({ error: 'Mot de passe incorrect !' });
           }
-          console.log(user.id);
+          console.log('message: ok');
           res.status(200).json({
             userId: user.id,
+            username: user.username,
+            email: user.email,
             token: jwt.sign(
                 { userId: user.id },
                 'RANDOM_TOKEN_SECRET',
@@ -48,4 +50,3 @@ exports.login = async (req, res, next) => {
       res.status(500).json({ error: 'erreur serveur' });
     } 
 };
-
