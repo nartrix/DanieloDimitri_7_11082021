@@ -4,7 +4,6 @@ import './posts.scss';
 import Post from './post';
 import axios from 'axios';
 import FormPost from '../form/formPost/formPost';
-/* import logoLoading from '../../image/icon-loading.png'; */
 
 class Posts extends Component {
 
@@ -23,7 +22,7 @@ class Posts extends Component {
 
     const user = JSON.parse(localStorage.getItem('user'));
 
-    axios.get('http://localhost:3001/api/post?sort=createdAt&order=desc', {
+    axios.get('http://localhost:3001/api/post?sort=createdAt&order=asc&include=User', {
         headers: {
             'Authorization': 'Bearer ' + user.token
         }
@@ -52,10 +51,11 @@ class Posts extends Component {
             <h1>Fil d'actualité</h1>
   
             <div className="posts-item">
-                {/* <img src={logoLoading} alt='logo loading' /> */}
+                {/* <Post key='0' /> */}
                 { posts ? (posts.map(post => {
                     return <Post key={post.id} post={post}/>
-                })) : '' }
+                })) : <div className='loader'></div> }
+                
             </div>
         </div>
       </>

@@ -1,5 +1,3 @@
-const {Model} = require('sequelize');
-
 module.exports = (sequelize, DataTypes) => {
     const Post = sequelize.define("posts", {
         id: {
@@ -19,6 +17,12 @@ module.exports = (sequelize, DataTypes) => {
         },
         image: {
             type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                notNull: {
+                msg: 'Le contenu du post ne peut pas être vide',
+                }
+            }
         }
     }, {
         sequelize,

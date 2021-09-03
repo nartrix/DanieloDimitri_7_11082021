@@ -1,15 +1,17 @@
 .post {
     border: 1px black solid;
     border-radius: 15px;
+    margin-right: 2px;
 
     .post-content {
-
+        border-bottom: 1px black solid;
         .post-header {
             
+            border-bottom: 1px black solid;
+
             .post-user {
                 display: flex;
                 padding: 10px;
-                border-bottom: 1px black solid;
 
                 .post-name {
                     display: flex;
@@ -41,9 +43,8 @@
             font-weight: bold;
         }
 
-        time {
+        .post-date {
             padding: 10px;
         }
     }
-
 }

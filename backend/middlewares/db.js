@@ -21,6 +21,7 @@ db.sequelize = sequelize;
 
 db.users = require('../models/user') (sequelize, Sequelize);
 db.posts = require('../models/post') (sequelize, Sequelize);
+db.comments = require('../models/comment') (sequelize, Sequelize);
 
 /* db.users.belongsToMany(db.posts, {
   through: "user_posts",
@@ -28,7 +29,8 @@ db.posts = require('../models/post') (sequelize, Sequelize);
 }); */
 db.users.hasMany(db.posts);
 db.posts.belongsTo(db.users);
-
-db.sequelize.sync();
+db.posts.hasMany(db.comments);
+db.comments.belongsTo(db.posts);
+db.comments.belongsTo(db.users);
 
 module.exports = db;
