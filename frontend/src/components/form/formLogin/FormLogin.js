@@ -14,7 +14,7 @@ class FormLogin extends Component {
 
     handleFormSubmit = (event) => { // Submit post login
         event.preventDefault();
-        let { fields } = this.state;
+        const { fields } = this.state;
         axios.post('http://localhost:3001/api/auth/login',{
             email: fields.email,
             password: fields.password
@@ -28,11 +28,9 @@ class FormLogin extends Component {
     }
 
     handleChange = (event) => {
-        let { fields } = this.state;
+        const { fields } = this.state;
         fields[event.target.name] = event.target.value;
-        this.setState({
-            fields
-        })
+        this.setState({fields})
     }
 
     render () {

@@ -1,5 +1,6 @@
 const db = require('../middlewares/db');
 
+
 exports.createComment = (req, res, next) => {
     db.posts.findOne({where: {id: req.body.postId}})
         .then(post => {

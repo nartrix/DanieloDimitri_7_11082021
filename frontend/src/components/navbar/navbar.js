@@ -24,7 +24,7 @@ class Navbar extends Component {
 
                         <Link className='navbar-item' to='/account'>
                             <div className='img-account'>
-
+                                {/* <img className="rounded" src="https://bulma.io/images/placeholders/128x128.png" alt="phot utilisateur"/> */}
                             </div>
                         </Link>
                     </div>

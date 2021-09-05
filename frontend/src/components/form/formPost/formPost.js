@@ -22,7 +22,7 @@ class FormPost extends Component {
     
     handleFormSubmit = (event) => { // Submit formData with authorization token 
         event.preventDefault();
-        let { content } = this.state.fields;
+        const { content } = this.state.fields;
 
         const user = JSON.parse(localStorage.getItem('user'));
 
@@ -51,7 +51,7 @@ class FormPost extends Component {
     }
 
     handleChange = (event) => {
-        let { fields } = this.state;
+        const { fields } = this.state;
         fields[event.target.name] = event.target.value;
         this.setState({
             fields

@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
 import './post.scss';
 import axios from 'axios';
-import PropTypes from 'prop-types';
+/* import PropTypes from 'prop-types'; */
 import FormComment from '../form/formComment/formComment';
 import Comment from '../comment/comment';
-import imgTest from '../../image/img-test.png';
+/* import imgTest from '../../image/img-test.png'; */
 
 class Post extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            comments: [],
+            showMore: false,
+        }
 
-    state = {
-        post: [],
-        comments: []
+        this.handleClick = this.handleClick.bind(this);
+        this.addComment = this.addComment.bind(this);
+      }
+    
+
+    componentDidMount() {
+        this.getAllComments();
     }
 
     getAllComments() {
@@ -23,6 +33,7 @@ class Post extends Component {
             }
         })
             .then(res => {
+                console.log(res.data);
                 this.setState({ comments: res.data });
             })
             .catch(err => {
@@ -31,16 +42,21 @@ class Post extends Component {
             })
     }
 
+    handleClick(e){
+        this.setState({showMore: !this.state.showMore});
+    }
+
     addComment(comment) {
-        let { comments } = this.state;
+        const { comments } = this.state;
         comments.push(comment);
         this.setState({ comments });
     }
     
     render() {
 
-        let { comments } = this.state;
-        
+        const { comments, showMore } = this.state;
+        const pager = 1;
+
         return (
             <div className="post">
                 <div className="post-content">
@@ -65,17 +81,25 @@ class Post extends Component {
                 </div>
 
                 <div className="post-comments">
+                    <div className="comment-items">
+                        { comments && showMore ? (comments.map(comment => {
+                            return <Comment key={comment.id} comment={comment} />
+                        })) : (comments.reverse().slice(0, pager).map(comment => {
+                            return <Comment key={comment.id} comment={comment} />
+                        })) }
+                    </div>
+        
+                    <div className="btn-show" onClick={this.handleClick}>
+                        <p className="show-more">voir plus</p>
+                    </div>
                     <FormComment postId={this.props.post.id} user={this.props.user} addComment={this.addComment.bind(this)}/>
-                    { comments ? (comments.map(comment => {
-                        return <Comment key={comment.id} comment={comment} user={this.props.user} />
-                    })) : '' }
                 </div>
             </div>
         )
     }
 }
 
-Post.prototypes ={
+/* Post.prototypes ={
     post: PropTypes.object
 }
 
@@ -88,6 +112,6 @@ Post.defaultProps = {
             username: 'toto'
         }
     }
-  };
+  }; */
 
 export default Post;

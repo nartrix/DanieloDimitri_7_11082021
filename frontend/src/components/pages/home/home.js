@@ -7,7 +7,6 @@ import Posts from '../../posts/posts';
 
 class Home extends Component {
   render() {
-
     return (
       <>
         <Navbar />

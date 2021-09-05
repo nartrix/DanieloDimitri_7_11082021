@@ -47,8 +47,7 @@ class FormComment extends Component {
             })
                 .then(res => {
                     const comment = res.data.comment;
-                    comment.User = { username: this.props.user.username }
-                    console.log(comment);
+                    comment.user = { username: this.props.user.username }
                     this.props.addComment(comment);
 
                     // Reset form fields
