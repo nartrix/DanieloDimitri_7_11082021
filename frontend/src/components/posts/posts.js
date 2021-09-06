@@ -41,6 +41,12 @@ class Posts extends Component {
     posts = [post, ...posts];
     this.setState({ posts });
   }
+
+  deletePost(postId) {
+    let { posts } = this.state;
+    posts = posts.filter(post => post.id !== postId);
+    this.setState({ posts });
+  }
   
   render () {
     let { posts } = this.state;
@@ -53,7 +59,7 @@ class Posts extends Component {
             <div className="posts-item">
                 {/* <Post key='0' /> */}
                 { posts ? (posts.map(post => {
-                    return <Post key={post.id} post={post}/>
+                    return <Post key={post.id} post={post} deletePost={this.deletePost.bind(this)}/>
                 })) : <div className='loader'></div> }
                 
             </div>

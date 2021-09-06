@@ -29,6 +29,12 @@ module.exports = (sequelize, DataTypes) => {
       password: {
         type: DataTypes.STRING(255),
         allowNull: false,
+      },
+
+      roles: {
+        type: DataTypes.JSON,
+        allowNull: false,
+        defaultValue: ['ROLE_USER'],
       }
     },{
       sequelize,

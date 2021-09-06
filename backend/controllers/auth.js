@@ -38,6 +38,7 @@ exports.login = async (req, res, next) => {
             userId: user.id,
             username: user.username,
             email: user.email,
+            roles: user.roles,
             token: jwt.sign(
                 { userId: user.id },
                 'RANDOM_TOKEN_SECRET',

@@ -42,7 +42,25 @@ class Post extends Component {
             })
     }
 
-    handleClick(e){
+    handlePostDelete = (event) => {
+        event.preventDefault();
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        axios.delete('http://localhost:3001/api/post/' + this.props.post.id, {
+            headers: {
+                'Authorization': 'Bearer ' + user.token
+            }
+        })
+            .then(() => {
+                this.props.deletePost(this.props.post.id);
+            })
+            .catch((err) => {
+                console.log(err);
+                window.alert('Une erreur est survenue, veuillez réessayer plus tard. Si le problème persiste, contactez l\'administrateur du site');
+            })
+    }
+
+    handleClick(){
         this.setState({showMore: !this.state.showMore});
     }
 
@@ -55,6 +73,7 @@ class Post extends Component {
     render() {
 
         const { comments, showMore } = this.state;
+        const user = JSON.parse(localStorage.getItem('user'));
         const pager = 1;
 
         return (
@@ -66,6 +85,9 @@ class Post extends Component {
 
                             </div>
                             <div className="post-name">{this.props.post.user.username}</div>
+                            { user.roles && user.roles.includes("ROLE_MODERATEUR") ?
+                                <button onClick={this.handlePostDelete} className="button">Supprimer ce post</button> : ''
+                            }
                         </div>
                     </div>
 
@@ -87,10 +109,10 @@ class Post extends Component {
                         })) : (comments.reverse().slice(0, pager).map(comment => {
                             return <Comment key={comment.id} comment={comment} />
                         })) }
-                    </div>
-        
-                    <div className="btn-show" onClick={this.handleClick}>
-                        <p className="show-more">voir plus</p>
+
+                        <div className="btn-show" onClick={this.handleClick}>
+                            <p className="show-more">voir plus</p>
+                        </div>
                     </div>
                     <FormComment postId={this.props.post.id} user={this.props.user} addComment={this.addComment.bind(this)}/>
                 </div>

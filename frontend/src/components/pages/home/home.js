@@ -6,6 +6,20 @@ import Posts from '../../posts/posts';
 
 
 class Home extends Component {
+
+  componentDidMount() {
+    this.authenticate();
+  }
+
+  authenticate() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user.token;
+
+    if (!token) {
+      window.location.href = "/login";
+    }
+  }
+
   render() {
     return (
       <>
