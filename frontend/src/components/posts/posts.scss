@@ -1,0 +1,21 @@
+.section-posts {
+    h1 {
+        font-size: 24px;
+        font-weight: bold;
+        padding: 20px 20px;
+    }
+
+    .posts-item {
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 40px;
+
+        .loader {
+            width: 50%;
+            padding-bottom: 50%;
+            margin: 30px auto;
+        }
+    }
+}
