@@ -58,7 +58,7 @@ class Posts extends Component {
   
             <div className="posts-item">
                 {/* <Post key='0' /> */}
-                { posts ? (posts.map(post => {
+                { posts ? (posts.reverse().map(post => {
                     return <Post key={post.id} post={post} deletePost={this.deletePost.bind(this)}/>
                 })) : <div className='loader'></div> }
                 

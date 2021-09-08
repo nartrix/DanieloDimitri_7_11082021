@@ -1,8 +1,35 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import './comment.scss';
 
 class Comment extends Component {
+
+    handleCommentDelete = (event) => {
+        event.preventDefault();
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        axios.delete('http://localhost:3001/api/comment/'+ this.props.comment.id, {
+            headers: {
+                'Authorization': 'Bearer ' + user.token
+            },
+            data: {
+                'Role': user.roles
+            }
+        })
+            .then(() => {
+                this.props.deleteComment(this.props.comment.id);
+            })
+            .catch(err => {
+                console.log(err);
+                window.alert('Une erreur est survenue, veuillez réessayer plus tard.');
+            })
+
+    }
+
     render() {
+
+        const user = JSON.parse(localStorage.getItem('user'));
+
         return (
             <div className="media comment">
                 <figure className="media-left">
@@ -21,7 +48,9 @@ class Comment extends Component {
                     </div>
                 </div>
                 <div className="media-right">
-                    <button className="delete"></button>
+                    { user.roles && user.roles.includes("ROLE_MODERATEUR") ?
+                        <button onClick={this.handleCommentDelete} className="button">Supprimer ce post</button> : ''
+                    }
                 </div>
             </div>
         )

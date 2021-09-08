@@ -49,6 +49,9 @@ class Post extends Component {
         axios.delete('http://localhost:3001/api/post/' + this.props.post.id, {
             headers: {
                 'Authorization': 'Bearer ' + user.token
+            },
+            data : {
+               'Role': user.roles
             }
         })
             .then(() => {
@@ -58,6 +61,12 @@ class Post extends Component {
                 console.log(err);
                 window.alert('Une erreur est survenue, veuillez réessayer plus tard. Si le problème persiste, contactez l\'administrateur du site');
             })
+    }
+
+    deleteComment(commentId) {
+        let { comments } = this.state;
+        comments = comments.filter(comment => comment.id !== commentId);
+        this.setState({ comments });
     }
 
     handleClick(){
@@ -104,10 +113,10 @@ class Post extends Component {
 
                 <div className="post-comments">
                     <div className="comment-items">
-                        { comments && showMore ? (comments.map(comment => {
-                            return <Comment key={comment.id} comment={comment} />
+                        { comments && showMore ? (comments.reverse().map(comment => {
+                            return <Comment key={comment.id} comment={comment} deleteComment={this.deleteComment.bind(this)} />
                         })) : (comments.reverse().slice(0, pager).map(comment => {
-                            return <Comment key={comment.id} comment={comment} />
+                            return <Comment key={comment.id} comment={comment} deleteComment={this.deleteComment.bind(this)} />
                         })) }
 
                         <div className="btn-show" onClick={this.handleClick}>

@@ -1,4 +1,5 @@
 const db = require('../middlewares/db');
+const User = db.users;
 
 
 exports.createComment = (req, res, next) => {
@@ -19,4 +20,14 @@ exports.createComment = (req, res, next) => {
             console.error(error);
             res.status(400).json({ error });
         })         
+}
+
+exports.deleteComment = (req, res, next) => {
+    if (req.body.Role.includes('ROLE_MODERATEUR')) {
+        db.comments.destroy({ where: { id: req.params.id } })
+            .then(() => res.status(200).json({ message: 'Post supprimé !' }))
+            .catch(error => res.status(404).json({ error }))
+    } else {
+        return res.status(403).json({ error: 'Vous ne disposez pas de droits suffisants' })
+    }
 }

@@ -25,7 +25,7 @@ exports.createPost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
     db.posts.findOne({ where: { id: req.params.id } })
         .then(post => {
-            if (User.roles.includes('ROLE_MODERATEUR')) {
+            if (req.body.Role.includes('ROLE_MODERATEUR')) {
                 if (post.image) {
                     const filename = post.image.split('/images/')[1];
                     fs.unlink(`images/${filename}`, (err) => {
