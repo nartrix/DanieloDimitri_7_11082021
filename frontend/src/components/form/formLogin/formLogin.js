@@ -68,7 +68,6 @@ class FormLogin extends Component {
                     <div className="control has-icons-left has-icons-right">
                         <input className="input" type="email" placeholder="Email" name="email" value={this.state.fields['email']} onChange={this.handleChange} />
                         <span className="icon is-small is-left"><i className="fas fa-envelope"></i></span>
-                        <span className="icon is-small is-right"><i className="fas fa-check"></i></span>
                     </div>
                     {errors['email'] ? (
                         <div className="notification is-danger">
