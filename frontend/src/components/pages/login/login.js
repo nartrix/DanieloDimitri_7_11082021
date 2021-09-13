@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../../App.scss';
 import './login.scss';
-import FormLogin from '../../form/formLogin/FormLogin';
+import FormLogin from '../../form/formLogin/formLogin';
 import logoLogin from '../../../image/icon-login.png';
 
 function Login() {
