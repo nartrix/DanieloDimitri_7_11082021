@@ -8,6 +8,7 @@ class FormPost extends Component {
         fields: {
             content: ''
         },
+        errors: {}
     }
 
     fileExtensions = [
@@ -19,35 +20,55 @@ class FormPost extends Component {
         this.imageInput = React.createRef();
         this.newPostForm = React.createRef();
     }
+
+    validation() {
+        let { fields } = this.state;
+        let formIsValid = true;
+        let errors = {};
+
+        if (!fields['content']) {
+            errors['content'] = 'Le message de votre post ne peut pas être vide';
+        }
+
+        if (Object.keys(errors).length !== 0) {
+            formIsValid = false;
+        }
+        this.setState({ errors });
+
+        return formIsValid;
+    }
     
     handleFormSubmit = (event) => { // Submit formData with authorization token 
         event.preventDefault();
-        const { content } = this.state.fields;
 
-        const user = JSON.parse(localStorage.getItem('user'));
+        if (this.validation()) {
+            const { content } = this.state.fields;
 
-        const formData = new FormData();
-        formData.append('content', content);
-        formData.append('image', this.imageInput.current.files[0]);
+            const user = JSON.parse(localStorage.getItem('user'));
 
-        axios.post('http://localhost:3001/api/post', formData, {
-            headers: {
-                'Authorization': 'Bearer ' + user.token,
-                'Content-Type': 'multipart/form-data'
-            }
-        })
-        .then(res => {
-            const post = res.data.post;
-            post.User = { username: this.props.user.username };
-            this.props.addPost(post);
+            const formData = new FormData();
+            formData.append('content', content);
+            formData.append('image', this.imageInput.current.files[0]);
 
-            // Reset form fields
-            this.newPostForm.current.reset();
-            this.setState({ fields: { content: '' } });
-        })
-        .catch(err => {
-            console.log(err);
-        })
+            axios.post('http://localhost:3001/api/post', formData, {
+                headers: {
+                    'Authorization': 'Bearer ' + user.token,
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            .then(res => {
+                const post = res.data.post;
+                post.User = { username: this.props.user.username };
+                this.props.addPost(post);
+
+                // Reset form fields
+                this.newPostForm.current.reset();
+                this.setState({ fields: { content: '' } });
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }
     }
 
     handleChange = (event) => {
@@ -59,15 +80,21 @@ class FormPost extends Component {
     }
 
     render() {
+        let { errors } = this.state;
+
         return (
             <>
                 <form className="form-group form-post" method="post" onSubmit={this.handleFormSubmit} ref={this.newPostForm}>
                     <div className="field">
-                        <div className="control has-icons-left has-icons-right">
+                        <div className="control has-icons-left">
                             <input className="input" type="text" placeholder="Donner un titre à votre post" name="content" value={this.state.fields['content']} onChange={this.handleChange}  />
                             <span className="icon is-small is-left"><i className="fas fa-envelope"></i></span>
-                            <span className="icon is-small is-right"><i className="fas fa-check"></i></span>
                         </div>
+                        {errors['content'] ? (
+                            <div className="notification is-danger">
+                                {errors['content']}
+                            </div>
+                        ) : '' }
                     </div>
 
                     <div className="field is-grouped">
@@ -77,10 +104,10 @@ class FormPost extends Component {
                                     <input className="file-input" type="file" name="image" ref={this.imageInput} />
                                     <span className="file-cta">
                                     <span className="file-icon">
-                                        <i className="fas fa-upload"></i>
+                                        <i className="fas fa-file"></i>
                                     </span>
                                     <span className="file-label">
-                                        Choose a file…
+                                        Votre image
                                     </span>
                                     </span>
                                 </label>

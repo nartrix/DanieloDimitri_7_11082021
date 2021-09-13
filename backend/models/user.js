@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         validate: {
           notNull: {
-            msg: 'L\'email ne peut pas être vide',
+            msg: 'L\'email ne peut pas être vide'
           }
         }
       },
@@ -22,8 +22,8 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         validate: {
           notNull: {
-            msg: 'Le nom d\'utilisateur ne peut pas être vide',
-          },
+            msg: 'Le nom d\'utilisateur ne peut pas être vide'
+          }
         }
       },
       password: {

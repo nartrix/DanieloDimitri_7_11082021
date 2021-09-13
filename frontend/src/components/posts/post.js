@@ -86,7 +86,7 @@ class Post extends Component {
         const pager = 1;
 
         return (
-            <div className="post">
+            <div className="post column is-8">
                 <div className="post-content">
                     <div className="post-header">
                         <div className="post-user">
@@ -95,13 +95,13 @@ class Post extends Component {
                             </div>
                             <div className="post-name">{this.props.post.user.username}</div>
                             { user.roles && user.roles.includes("ROLE_MODERATEUR") ?
-                                <button onClick={this.handlePostDelete} className="button">Supprimer ce post</button> : ''
+                                <button onClick={this.handlePostDelete} className="delete">Supprimer ce post</button> : ''
                             }
                         </div>
                     </div>
 
                     <div className="post-img">
-                        { this.props.post.image ? <img src={this.props.post.image} alt="" className="post__picture"/> : '' }
+                        { this.props.post.image ? <img src={this.props.post.image} alt="" className="image"/> : '' }
                     </div>
 
                     <p className="post-title">

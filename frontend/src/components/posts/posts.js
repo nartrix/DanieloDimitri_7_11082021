@@ -56,7 +56,7 @@ class Posts extends Component {
           <FormPost addPost={this.addPost.bind(this)} user={this.props.user} />
             <h1>Fil d'actualité</h1>
   
-            <div className="posts-item">
+            <div className="posts-item columns is-flex-direction-column is-align-items-center">
                 {/* <Post key='0' /> */}
                 { posts ? (posts.reverse().map(post => {
                     return <Post key={post.id} post={post} deletePost={this.deletePost.bind(this)}/>
