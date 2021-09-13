@@ -60,7 +60,7 @@ class Account extends Component {
             <div className="my-posts">
               <h1>Mes posts</h1>
 
-              <div className="myposts-items">
+              <div className="myposts-items columns is-flex-direction-column is-align-items-center">
                 { myPosts ? (myPosts.map(post => {
                       return <Post key={post.id} post={post}/>
                   })) : <div className='loader'></div> }

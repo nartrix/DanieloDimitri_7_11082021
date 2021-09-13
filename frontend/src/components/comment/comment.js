@@ -49,7 +49,7 @@ class Comment extends Component {
                 </div>
                 <div className="media-right">
                     { user.roles && user.roles.includes("ROLE_MODERATEUR") ?
-                        <button onClick={this.handleCommentDelete} className="button">Supprimer ce post</button> : ''
+                        <button onClick={this.handleCommentDelete} className="delete"></button> : ''
                     }
                 </div>
             </div>

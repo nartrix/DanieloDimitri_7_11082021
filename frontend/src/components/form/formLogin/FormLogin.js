@@ -9,22 +9,48 @@ class FormLogin extends Component {
         fields: {
             email: '',
             password: ''
+        },
+        errors: {}
+    }
+
+    validation() {
+        let { fields } = this.state;
+        let formIsValid = true;
+        let errors = {};
+
+        // Email validation
+        if (!fields['email']) {
+            errors['email'] = 'L\'email ne peut pas être vide';
         }
+
+        // Password validation
+        if (!fields['password']) {
+            errors['password'] = 'Le mot de passe ne peut pas être vide';
+        }
+
+        if (Object.keys(errors).length !== 0) {
+            formIsValid = false;
+        }
+        this.setState({ errors })
+
+        return formIsValid;
     }
 
     handleFormSubmit = (event) => { // Submit post login
         event.preventDefault();
-        const { fields } = this.state;
-        axios.post('http://localhost:3001/api/auth/login',{
-            email: fields.email,
-            password: fields.password
-        })
-        .then(res => {
-            localStorage.setItem("user", JSON.stringify(res.data));
-            window.location.href = "/";
-        })
-        .catch(err => {
-        })
+        if (this.validation()) {
+            const { fields } = this.state;
+            axios.post('http://localhost:3001/api/auth/login',{
+                email: fields.email,
+                password: fields.password
+            })
+            .then(res => {
+                localStorage.setItem("user", JSON.stringify(res.data));
+                window.location.href = "/";
+            })
+            .catch(err => {
+            })
+        }
     }
 
     handleChange = (event) => {
@@ -34,6 +60,8 @@ class FormLogin extends Component {
     }
 
     render () {
+        let { errors } = this.state;
+
         return (
             <form className="form-group form-login" onSubmit={this.handleFormSubmit}>
                 <div className="field">
@@ -42,6 +70,11 @@ class FormLogin extends Component {
                         <span className="icon is-small is-left"><i className="fas fa-envelope"></i></span>
                         <span className="icon is-small is-right"><i className="fas fa-check"></i></span>
                     </div>
+                    {errors['email'] ? (
+                        <div className="notification is-danger">
+                            {errors['email']}
+                        </div>
+                    ) : '' }
                 </div>
     
                 <div className="field">
@@ -49,6 +82,11 @@ class FormLogin extends Component {
                         <input className="input" type="password" placeholder="Password" name="password" value={this.state.fields['password']} onChange={this.handleChange} />
                         <span className="icon is-small is-left"><i className="fas fa-lock"></i></span>
                     </div>
+                    {errors['password'] ? (
+                            <div className="notification is-danger">
+                                {errors['password']}
+                            </div>
+                    ) : '' }
                 </div>
     
                 <div className="field">

@@ -12,7 +12,7 @@ class FormComment extends Component {
         errors: {}
     }
 
-    handleValidation() {
+    Validation() {
         let { fields } = this.state;
         let formIsValid = true;
         let errors = {};
@@ -33,7 +33,7 @@ class FormComment extends Component {
 
     handleFormSubmit = (event) => {
         event.preventDefault();
-        if (this.handleValidation()) {
+        if (this.validation()) {
             let { message } = this.state.fields;
             const user = JSON.parse(localStorage.getItem('user'));
 

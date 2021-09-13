@@ -1,17 +1,18 @@
 .post {
     border: 2px rgba(219,219,219,.8) solid;
     border-radius: 15px;
-    margin-right: 10px;
-    margin-left: 10px;
+    padding: 0;
 
     .post-content {
         border-bottom: 1px rgba(219,219,219,.8) solid;
+        
         .post-header {
             
             border-bottom: 1px rgba(219,219,219,.8) solid;
 
             .post-user {
                 display: flex;
+                align-items: center;
                 padding: 10px;
 
                 .post-name {
@@ -36,6 +37,7 @@
 
             img {
                 width: 100%;
+                height: auto;
                 object-fit: cover;
             }
         }
