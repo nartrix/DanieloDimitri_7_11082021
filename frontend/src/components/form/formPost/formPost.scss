@@ -1,0 +1,25 @@
+.form-post {
+    padding: 80px 25px 20px 25px;
+    border-bottom: 1px solid black;
+
+    .input {
+        border-radius: 10px;
+    }
+
+    .notification {
+        padding: 10px;
+        font-size: 14px;
+        
+    }
+
+    .field, .is-grouped {
+        .btn-publish {
+            display: flex;
+            float: right;
+            background-color: #fd2d01;
+            color: white;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+    }   
+}

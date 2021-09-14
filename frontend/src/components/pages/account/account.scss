@@ -1,0 +1,56 @@
+.profile {
+    padding-top: 120px;
+
+    .profile-content {
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px rgba(219,219,219,.8) solid;
+
+        .profile-header {
+            display: flex;
+            padding-bottom: 40px;
+            
+            .img-account {
+                border: 2px #fd2d01 solid;
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+            }
+
+            .profile-name {
+                display: flex;
+                align-items: center;
+                margin-left: 10px;
+                font-weight: bold;
+            }
+        }
+
+        .btn-profile {
+            background-color: #fd2d01;
+            color: white;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+    }
+
+    .my-posts {
+        
+
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 20px 20px;
+        }
+
+        .myposts-items {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 40px;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin: 0;
+        }
+    }
+}
