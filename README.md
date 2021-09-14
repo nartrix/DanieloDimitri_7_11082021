@@ -5,6 +5,9 @@
 Node.js v14
 
 ### Backend ###
+Dans le dossier config modifier le ficher `db.config.js` par votre mot de passe et le nom de votre base de donnée.
+`PASSWORD: "votre mot de passe"`
+`DB: "nom de votre db"`
 
 Utilisé la commande `npm install` pour installer les packages.
 
