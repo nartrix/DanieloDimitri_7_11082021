@@ -46,7 +46,7 @@ class FormLogin extends Component {
             })
             .then(res => {
                 localStorage.setItem("user", JSON.stringify(res.data));
-                window.location.href = "/";
+                window.location.href = "/home";
             })
             .catch(err => {
             })
@@ -63,7 +63,7 @@ class FormLogin extends Component {
         let { errors } = this.state;
 
         return (
-            <form className="form-group form-login" onSubmit={this.handleFormSubmit}>
+            <form className="form-group form-login column is-6" onSubmit={this.handleFormSubmit}>
                 <div className="field">
                     <div className="control has-icons-left has-icons-right">
                         <input className="input" type="email" placeholder="Email" name="email" value={this.state.fields['email']} onChange={this.handleChange} />

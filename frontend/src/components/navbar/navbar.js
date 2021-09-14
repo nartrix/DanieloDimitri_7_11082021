@@ -11,7 +11,7 @@ class Navbar extends Component {
             <>
               <nav className="navbar is-fixed-top" role="navigation" aria-label="main navigation">
                   <div className="navbar-brand">
-                      <Link className="navbar-item" to='/'>
+                      <Link className="navbar-item" to='/home'>
                           <img src={logo} className='img-logo' alt='logo'/>
                       </Link>
                   </div>

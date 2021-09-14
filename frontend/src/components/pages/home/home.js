@@ -16,7 +16,7 @@ class Home extends Component {
     const token = user.token;
 
     if (!token) {
-      window.location.href = "/login";
+      window.location.href = "/";
     }
   }
 

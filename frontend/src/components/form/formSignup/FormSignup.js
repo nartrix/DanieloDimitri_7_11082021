@@ -53,7 +53,7 @@ class FormSignup extends Component {
                 password: fields['password']
             })
             .then(res => {
-                window.location.href = "/login";
+                window.location.href = "/";
             })
             .catch(err => {
             })
@@ -74,7 +74,7 @@ class FormSignup extends Component {
 
         return (
             <>
-                <form className="form-group form-signup" method="post" onSubmit={this.handleFormSubmit}>
+                <form className="form-group form-signup column is-6" method="post" onSubmit={this.handleFormSubmit}>
                     <div className="field">
                         <div className="control has-icons-left has-icons-right">
                             <input className="input" type="email" placeholder="Email" name="email" value={this.state.fields['email']} onChange={this.handleChange} />
@@ -121,7 +121,7 @@ class FormSignup extends Component {
     
                     <div className="section-login">
                         <p>Vous n'avez pas de compte</p>
-                        <Link to='/login'>
+                        <Link to='/'>
                             Connexion
                         </Link>
                     </div>

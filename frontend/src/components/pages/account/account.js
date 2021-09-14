@@ -38,6 +38,25 @@ class Account extends Component {
     })
   }
 
+  handleDelete(event) {
+    event.preventDefault();
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    axios.delete('http://localhost:3001/api/users', {
+        headers: {
+            'Authorization': 'Bearer ' + user.token
+        }
+    })
+        .then(() => {
+            window.location.href = '/logout';
+        })
+        .catch(err => {
+            console.log(err);
+            window.alert('Une erreur est survenue, veuillez réessayer plus tard. Si le problème persiste, contactez l\'administrateur du site');
+        })
+
+  }
+
   render() {
     const {user, myPosts} = this.state;
     return (
@@ -55,6 +74,8 @@ class Account extends Component {
                 </div>
                 <button className="button btn-profile">
                     Modifier mon profil
+                </button>
+                <button className="delete" onClick={this.handleDelete}>
                 </button>
             </div>
             <div className="my-posts">

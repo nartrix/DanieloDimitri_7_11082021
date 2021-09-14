@@ -1,6 +1,6 @@
 function Logout() {
     localStorage.removeItem("user");
-    window.location.href = '/login';
+    window.location.href = '/';
 }
 
 export default Logout;
